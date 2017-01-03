@@ -1,5 +1,7 @@
 /* Detab - replaces tabs with blanks (each tab stop is 8 spaces long) 
 
+DONE
+
 Track where you are in the line - index in line % 8.
 
 Index:
@@ -23,7 +25,6 @@ void parse(char source[], char target[]);
 
 int main(void)
 {
-	int index, length;
 	char line[MAXLINE], output[MAXLINE];
 	while(1){
 		retrieve(line, MAXLINE);
@@ -33,7 +34,7 @@ int main(void)
 		parse(line, output);
 		printf("%s", output);
 	}
-	printf("\n");
+	return 0;
 }
 
 
@@ -59,15 +60,18 @@ void parse(char s[], char t[])
 		if(s[i] == '\t'){
 			/* Keep printing spaces until you hit a tabstop */
 			r = (o % TABSTOP);
-			for(j=0; j< TABSTOP - r; ++j){
+			for(j=0; j < TABSTOP - r; ++j){
 				/* increment output position counter to account for new spaces */
-				o++;
 				t[o] = ' ';
+				o++;
 			}
-		} else {
+		}
+		else {
 			/* just increment it once */
-			o++;
 			t[o] = s[i];
+			o++;
 		}
 	}
+	/*Crucially, terminate the line!!!!*/
+	t[o] = '\0';
 }

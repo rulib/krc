@@ -1,5 +1,5 @@
 End of section 1:
-1-20 Detab: done
+*1-20 Detab: done and fixed
 1-21 Entab: in progress
 	notes:
 	*track place in line, need to track OLD position before tab substitutions
@@ -8,7 +8,7 @@ End of section 1:
 	and assess tab stops
 	*basically always know where your next stop is
 1-22 Fold lines: not started
-1-23 Decomment: done for multiline comments, not tracking //, 
+*1-23 Decomment: done for multiline comments, not tracking //, 
 	excessively general, reusable probably for 1-24
 1-24 The Big Boy: base on excessively general 1-23, don't spend too much time
 	debugging this or testing weird cases, you don't know the edge cases in C

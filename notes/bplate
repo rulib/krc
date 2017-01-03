@@ -1,22 +1,3 @@
-Library implementors face similar hurdles. Even if the design is done
-well, a poor implementation will scare off users. If an implementation is
-too slow or too big — or just perceived to be so — programmers will
-design their own replacements. 
-Next Line is Blank
-
-Next line exceeds 80 chars
-fssssssssssssssssssssssssssssssafskjdsgkjdskjgdskjkjgdslkjgdslkjgslkjgdsdsgdslkjgslkjgdskjlgdslkjgdsgdslkjlkjgds
-Next line exceeds 80 chars
-SaLaMaNdAsTrOnSaLaMaNdAsTrOnSaLaMaNdAsTrOnSaLaMaNdAsTrOnSaLaMaNdAsTrOnSaLaMaNdAsTrOnSaLaMaNdAsTrOnSaLaMaNdAsTrOnSaLaMaNdAsTrOnSaLaMaNdAsTrOnSaLaMaNdAsTrOnSaLaMaNdAsTrOn
-Next line exceeds 80 chars
-foobarbazquxfoobarbazquxfoobarbazquxfoobarbazquxfoobarbazquxfoobarbazquxfoobarbazquxfoobarbazquxfoobarbazquxfoobarbazquxfoobarbazquxfoobarbazquxfoobarbazquxfoobarbazqux
-Worst of all, if an implementation has
-bugs, it shatters the ideal outlined above and renders the library useless.
-This book describes the design and implementation of a library that is
-suitable for a wide range of applications written in the C programming
-language. The library exports a set of modules that provide functions
-and data structures for “programming-in-the-small.” These modules are
-suitable for use as “piece parts” in applications or application components
-that are a few thousand lines long.
-
-Isn't this exciting!~
+VeryExtremely Long Initial Line to Test Buffer IgnoranceTERM0
+Mixed Spaces    And	 TabsTERM1
+AllTabs			And     TERM2
