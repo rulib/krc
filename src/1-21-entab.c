@@ -1,46 +1,5 @@
-/* Entab - replaces blanks with tabs and blanks
-(each tab stop is 8 spaces long) 
-
-WORK IN PROGRESS
-
-Track where you are in the line - index in line % 8.
-
-Index:
-	      111111
-0123456789012345
-Remainder:
-0123456701234567
-Number of spaces:
-8765432187654321
-
-Tabstop - Remainder number of spaces
-
-Copy as normal.
-
-Detab the text to strip existing tabs and make it easier to parse tabstops.
-
-When you encounter a blank, start looking ahead at how many blanks it is.
-Look at how many tabstops you pass.
-
-You will need to track tabstops based on the detabbed text.
-*/
-
-/* Detab - replaces tabs with blanks (each tab stop is 8 spaces long) 
-
-DONE
-
-Track where you are in the line - index in line % 8.
-
-Index:
-	      111111
-0123456789012345
-Remainder:
-0123456701234567
-Number of spaces:
-8765432187654321
-
-Tabstop - Remainder number of spaces
-
+/* 
+Entab - replaces blanks with tabs and blanks
 */
 
 #include <stdio.h>
@@ -101,6 +60,7 @@ void parse(char s[], char t[])
 	t[o] = '\0';
 }
 
+/* Converts spaces to tabs */
 void retab(char input[], char output[])
 {
 	/*
@@ -114,35 +74,50 @@ void retab(char input[], char output[])
 	*/
 	int newCharLength, oldCharLength, charsToTabStop, contiguousSpaces, iterateThroughSpaces;
 	newCharLength = 0;
-	charsToTabStop = 0;
-	contiguousSpaces = 0;
+	oldCharLength=0;
 	/* iterate through original string input */
-	for(oldCharLength=0; oldCharLength < MAXLINE && input[oldCharLength] != '\0'; ++oldCharLength){
+	while(oldCharLength < MAXLINE && input[oldCharLength] != '\0'){
 		if(input[oldCharLength] != ' '){
 			output[newCharLength] = input[oldCharLength];
 			++newCharLength;
+			++oldCharLength;
 		}
 		else {
+			contiguousSpaces = 0;
+			charsToTabStop = 0;
 			/* Start looking for spaces */
 			for(iterateThroughSpaces = oldCharLength; 
-				iterateThroughSpaces < MAXLINE && input[iterateThroughSpaces] == ' ';
+				iterateThroughSpaces < MAXLINE  
+				&& input[iterateThroughSpaces] == ' ';
 				++iterateThroughSpaces){
 				++contiguousSpaces;
 			}
 			/* Handle Multiple Spaces */
-			if (contiguousSpaces > 0){
+			if (contiguousSpaces > 1){
 				charsToTabStop = TABSTOP - (oldCharLength % TABSTOP);
+				/*Replace with tab*/
 				if(charsToTabStop <= contiguousSpaces){
 					output[newCharLength] = '\t';
 					++newCharLength;
 					oldCharLength += charsToTabStop;
+				}
+				/*Or handle handful of spaces*/
+				else{
+					for(contiguousSpaces; contiguousSpaces > 0; contiguousSpaces--){
+						output[newCharLength] = input[oldCharLength];
+						++newCharLength;
+						++oldCharLength;
+					}
 				}
 			}
 			/* Handle Single Spaces */
 			else {
 				output[newCharLength] = input[oldCharLength];
 				++newCharLength;
+				++oldCharLength;
+
 			}
 		}
 	}
+	output[newCharLength] = '\0';
 }
