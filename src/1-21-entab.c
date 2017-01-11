@@ -65,44 +65,44 @@ void retab(char input[], char output[])
 {
 	/*
 		overall length is going to be getting SHORTER here so...
-		newCharLength = num chars after entab
-		oldCharLength = original character length
-		charsToTabStop = starts at 7, ends at 0
+		outLen = num chars after retabbing
+		inLen = original character length
+		toTab = starts at 7, ends at 0, characters to next tab stop
 		spaces = counter for number of spaces in a sequence
 
-		Every time you insert a tab you need to make sure to keep incrementing oldCharLength
+		Every time you insert a tab you need to make sure to keep incrementing inLen
 	*/
-	int newCharLength, oldCharLength, charsToTabStop, spaces;
-	newCharLength = oldCharLength = 0;
+	int outLen, inLen, toTab, spaces;
+	outLen = inLen = 0;
 	/* iterate through original string input */
-	while(oldCharLength < MAXLINE && input[oldCharLength] != '\0'){
-		if(input[oldCharLength] != ' '){
-			output[newCharLength] = input[oldCharLength];
-			++newCharLength;
-			++oldCharLength;
+	while(inLen < MAXLINE && input[inLen] != '\0'){
+		if(input[inLen] != ' '){
+			output[outLen] = input[inLen];
+			++outLen;
+			++inLen;
 		}
 		else {
-			spaces = charsToTabStop = 0;
+			spaces = toTab = 0;
 			/* Start looking for spaces */
-			while(input[oldCharLength + spaces] == ' '){
+			while(input[inLen + spaces] == ' '){
 				++spaces;
 			}
 			/*Replace spaces with tab*/
-			charsToTabStop = TABSTOP - (oldCharLength % TABSTOP);
-			if(charsToTabStop <= spaces && spaces > 1){
-				output[newCharLength] = '\t';
-				++newCharLength;
-				oldCharLength += charsToTabStop;
+			toTab = TABSTOP - (inLen % TABSTOP);
+			if(toTab <= spaces && spaces > 1){
+				output[outLen] = '\t';
+				++outLen;
+				inLen += toTab;
 			}
 			/*Or handle handful of spaces*/
 			else{
 				for(spaces; spaces > 0; spaces--){
-					output[newCharLength] = input[oldCharLength];
-					++newCharLength;
-					++oldCharLength;
+					output[outLen] = input[inLen];
+					++outLen;
+					++inLen;
 				}
 			}
 		}
 	}
-	output[newCharLength] = '\0';
+	output[outLen] = '\0';
 }
