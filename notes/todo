@@ -1,12 +1,6 @@
 End of section 1:
 *1-20 Detab: done and fixed
-1-21 Entab: in progress
-	notes:
-	*track place in line, need to track OLD position before tab substitutions
-	to make sure tab subs get tracked correctly
-	*when a space is encountered, assess if next chars etc. are spaces,
-	and assess tab stops
-	*basically always know where your next stop is
+*1-21 Entab: done and tested
 1-22 Fold lines: not started
 *1-23 Decomment: done for multiline comments, not tracking //, 
 	excessively general, reusable probably for 1-24

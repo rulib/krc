@@ -3,7 +3,7 @@ Entab - replaces blanks with tabs and blanks
 */
 
 #include <stdio.h>
-#define MAXLINE 1000 /* maximum input line size */
+#define MAXLINE 1024 /* maximum input line size */
 #define TABSTOP 8 /* tab stop spacing */
 
 void retrieve(char target[], int limit);
@@ -67,14 +67,13 @@ void retab(char input[], char output[])
 		overall length is going to be getting SHORTER here so...
 		newCharLength = num chars after entab
 		oldCharLength = original character length
-		charsToTabStop = starts at 8, ends at 1
-		contiguousSpaces = counter for number of spaces in a sequence
+		charsToTabStop = starts at 7, ends at 0
+		spaces = counter for number of spaces in a sequence
 
 		Every time you insert a tab you need to make sure to keep incrementing oldCharLength
 	*/
-	int newCharLength, oldCharLength, charsToTabStop, contiguousSpaces, iterateThroughSpaces;
-	newCharLength = 0;
-	oldCharLength=0;
+	int newCharLength, oldCharLength, charsToTabStop, spaces;
+	newCharLength = oldCharLength = 0;
 	/* iterate through original string input */
 	while(oldCharLength < MAXLINE && input[oldCharLength] != '\0'){
 		if(input[oldCharLength] != ' '){
@@ -83,39 +82,25 @@ void retab(char input[], char output[])
 			++oldCharLength;
 		}
 		else {
-			contiguousSpaces = 0;
-			charsToTabStop = 0;
+			spaces = charsToTabStop = 0;
 			/* Start looking for spaces */
-			for(iterateThroughSpaces = oldCharLength; 
-				iterateThroughSpaces < MAXLINE  
-				&& input[iterateThroughSpaces] == ' ';
-				++iterateThroughSpaces){
-				++contiguousSpaces;
+			while(input[oldCharLength + spaces] == ' '){
+				++spaces;
 			}
-			/* Handle Multiple Spaces */
-			if (contiguousSpaces > 1){
-				charsToTabStop = TABSTOP - (oldCharLength % TABSTOP);
-				/*Replace with tab*/
-				if(charsToTabStop <= contiguousSpaces){
-					output[newCharLength] = '\t';
-					++newCharLength;
-					oldCharLength += charsToTabStop;
-				}
-				/*Or handle handful of spaces*/
-				else{
-					for(contiguousSpaces; contiguousSpaces > 0; contiguousSpaces--){
-						output[newCharLength] = input[oldCharLength];
-						++newCharLength;
-						++oldCharLength;
-					}
-				}
-			}
-			/* Handle Single Spaces */
-			else {
-				output[newCharLength] = input[oldCharLength];
+			/*Replace spaces with tab*/
+			charsToTabStop = TABSTOP - (oldCharLength % TABSTOP);
+			if(charsToTabStop <= spaces && spaces > 1){
+				output[newCharLength] = '\t';
 				++newCharLength;
-				++oldCharLength;
-
+				oldCharLength += charsToTabStop;
+			}
+			/*Or handle handful of spaces*/
+			else{
+				for(spaces; spaces > 0; spaces--){
+					output[newCharLength] = input[oldCharLength];
+					++newCharLength;
+					++oldCharLength;
+				}
 			}
 		}
 	}
