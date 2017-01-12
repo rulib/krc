@@ -1,8 +1,8 @@
-Lorem ipsum dolor sit amet, dicant nemore vulputate ea pri, eam ad equidem reprimique, sea aliquid 
-repudiandae              an. Pri te labore     regione accusam. Ei has reprimique dissentiunt 
-deterruisset, amet verear scripta te vel, ne deserunt    mediocritatem has. Eos omnes vivendo ea. Nullam 
-vidisse ad nam. Vis latine prompta te, ne vis senserit    temporibus, augue iuvaret recteque id vix.
-
-In nonumy      singulis mei.         efficiendi sed ad, omnium philosophia instructior pri ne, ea sumo
- saepe sed. In  d    uo, est id         effici    endi. Ponderum consectetuer ea has, dicit tamquam 
- sea at. Legimus alienum ut vix, cu quo vide incorrupte scribentur.
+NegOneLessThan80NoSpaces
+ZeroLessThan80NoSpaces
+TwoGreater than 80: Lorem ipsum dolor sit amet, dicant nemore vulputate ea pri, eam ad equidem reprimique, sea aliquid 
+ThreeGreater than 160: Lorem ipsum dolor sit amet, dicant nemore vulputate ea pri, eam ad equidem reprimique, sea aliquid Lorem ipsum dolor sit amet, dicant nemore vulputate ea pri, eam ad equidem reprimique, sea aliquid 
+FourGreaterThan80WithoutSpaces:12345678901234567890123456789012345678901234567890123456789012345678901234567890
+FiveGreaterThan1600WithoutSpaces:12345678901234567890123456789012345678901234567890123456789012345678901234567890abcdefghijklmnopabcdefghijklmnopabcdefghijklmnopabcdefghijklmnopabcdefghijklmnopabcdefghijklmnopabcdefghijklmnopabcdefghijklmnop
+SixExtremelyLongLineLorem ipsum dolor sit amet, dicant nemore vulputate ea pri, eam ad equidem reprimique, sea aliquid Lorem ipsum dolor sit amet, dicant nemore vulputate ea pri, eam ad equidem reprimique, sea aliquid Lorem ipsum dolor sit amet, dicant nemore vulputate ea pri, eam ad equidem reprimique, sea aliquid Lorem ipsum dolor sit amet, dicant nemore vulputate ea pri, eam ad equidem reprimique, sea aliquid Lorem ipsum dolor sit amet, dicant nemore vulputate ea pri, eam ad equidem reprimique, sea aliquid Lorem ipsum dolor sit amet, dicant nemore vulputate ea pri, eam ad equidem reprimique, sea aliquid Lorem ipsum dolor sit amet, dicant nemore vulputate ea pri, eam ad equidem reprimique, sea aliquid Lorem ipsum dolor sit amet, dicant nemore vulputate ea pri, eam ad equidem reprimique, sea aliquid Lorem ipsum dolor sit amet, 
+SevenSpaceAtEightyoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo 
