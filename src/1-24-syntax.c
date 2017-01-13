@@ -27,31 +27,71 @@ Increment and decrement the index in an integer
 #define DQUOTE 5
 #define COMMENT 6
 #define SINGLECOMMENT 7
-#define OPENERS ('{' || '(' || '[')
-#define CLOSERS ('}' || ')' || ']')
 
 void retrieve(char target[], int limit);
-void parseCode(char target[]);
+void parseCode(char line[], int stack[], int stackPosition, int mode);
 
 /* Main control program */
 int main(void)
 {
-	int stackPosition;
+	int stackPosition, mode;
 	int stack[MAXSTACK];
 	char line[MAXLINE];
+	mode = DEFAULT;
+	stackPosition = 0;
+	//printf("Initializing...");
 	while(1){
+		retrieve(line, MAXLINE);
 		if(line[0] == '\0'){
 			break;
 		}
-		retrieve(line, MAXLINE);
-		printFolded(line);
+		parseCode(line, stack, stackPosition, mode);
 	}
 	return 0;
 }
 
-/* Loads a line */
-void parsecode(char s[], int stack[], int stackPosition)
+void retrieve(char s[], int lim)
 {
     int c, i;
+    for (i=0; i<lim-1 && ((c=getchar()) != EOF) && c != '\n' ; ++i) 
+        s[i] = c; 
+    if (c == '\n') {
+        s[i] = c; 
+        ++i;
+    }
+    s[i] = '\0'; 
 }
+
+/* Loads a line */
+void parseCode(char s[], int stack[], int stackPosition, int mode)
+{
+    int c, i;
+    printf("Parsing Code... %s", s);
+    /*for(i=0; i < MAXLINE && s[i] != '\0'; ++i) {
+    	if(s[i]=='{' || s[i]=='(' || s[i]=='['){
+    		printf("OPENING CHAR\n");
+    	}
+    	if(s[i]=='}' || s[i]==')' || s[i]==']'){
+    		printf("CLOSING CHAR\n");
+    	}
+    }*/
+    for(i=0; i < MAXLINE && s[i] != '\0'; ++i) {
+	    switch (mode) {
+            case 0:
+                if(s[i]=='{' || s[i]=='(' || s[i]=='['){
+                    //printf("OPENING BRACE");
+                    mode = 1;
+                    i++;
+                } 
+                break;
+            case 1: 
+                if(s[i]=='}' || s[i]==')' || s[i]==']'){
+                    //printf("CLOSING BRACE");
+                    mode = 0;
+                }
+                break;
+		}
+	}
+}
+
 

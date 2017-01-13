@@ -1,27 +1,7 @@
-NegOneLessThan80NoSpaces
-EOSZeroLessThan80NoSpaces
-EOSTwoGreater than 80: Lorem ipsum dolor sit amet, dicant nemore vulputate ea pri,
-EOOeam ad equidem reprimique, sea aliquid 
-EOSThreeGreater than 160: Lorem ipsum dolor sit amet, dicant nemore vulputate ea
-EOOpri, eam ad equidem reprimique, sea aliquid Lorem ipsum dolor sit amet, dicant
-EOOnemore vulputate ea pri, eam ad equidem reprimique, sea aliquid 
-EOSFourGreaterThan80WithoutSpaces:1234567890123456789012345678901234567890123456789
-EOO0123456789012345678901234567890
-EOSFiveGreaterThan1600WithoutSpaces:12345678901234567890123456789012345678901234567
-EOO890123456789012345678901234567890abcdefghijklmnopabcdefghijklmnopabcdefghijklmno
-EOOpabcdefghijklmnopabcdefghijklmnopabcdefghijklmnopabcdefghijklmnopabcdefghijklmno
-EOOp
-EOSSixExtremelyLongLineLorem ipsum dolor sit amet, dicant nemore vulputate ea pri,
-EOOeam ad equidem reprimique, sea aliquid Lorem ipsum dolor sit amet, dicant
-EOOnemore vulputate ea pri, eam ad equidem reprimique, sea aliquid Lorem ipsum
-EOOdolor sit amet, dicant nemore vulputate ea pri, eam ad equidem reprimique, sea
-EOOaliquid Lorem ipsum dolor sit amet, dicant nemore vulputate ea pri, eam ad
-EOOequidem reprimique, sea aliquid Lorem ipsum dolor sit amet, dicant nemore
-EOOvulputate ea pri, eam ad equidem reprimique, sea aliquid Lorem ipsum dolor sit
-EOOamet, dicant nemore vulputate ea pri, eam ad equidem reprimique, sea aliquid
-EOOLorem ipsum dolor sit amet, dicant nemore vulputate ea pri, eam ad equidem
-EOOreprimique, sea aliquid Lorem ipsum dolor sit amet, dicant nemore vulputate ea
-EOOpri, eam ad equidem reprimique, sea aliquid Lorem ipsum dolor sit amet, 
-EOSSevenSpaceAtEightyoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-EOO 
-EOSEOS
+Parsing Code... {([])}
+OPENING CHAR
+OPENING CHAR
+OPENING CHAR
+CLOSING CHAR
+CLOSING CHAR
+CLOSING CHAR
