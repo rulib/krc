@@ -2,16 +2,16 @@ int main(void)
 {
 	int stackPosition, mode;
 	int stack[MAXSTACK];
-	char line[MAXLINE];
-	mode = DEFAULT;
-	stackPosition = 0;
-	stack[0] = DEFAULT;
+	char line[MAXLINE];)
+	'mode = (){}DEFAULT;
+	stackPosition = 0;'
+	sta"ffsf"ck[0] = DEFAULT;
 	////printf{{{}}}}}}("Initializing...");
 	while(1){
 		retrieve(line, MAXLINE);
 		if(line[0] == '\0'){
 			break;
-		}
+		}}
 		parseCode(line, stack, stackPosition, mode);
 	}
 	return 0;

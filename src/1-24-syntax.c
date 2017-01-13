@@ -2,6 +2,15 @@
 Write a program to check for unbalanced parens, brackets, and braces.
 Account for quotes (single and double), escape sequences, and comments.
 
+X Parens
+Brackets
+X Braces
+X SingleQuotes
+X DoubleQuotes
+Escape Sequences
+X ne Line Comments
+Multi Line Comments
+
 So we are looking for {} [] () '' "" \ //
 Relevant escape sequences are escaped versions of all of the above - that is to say
 the program never enters a new "mode" in the char following \
@@ -31,6 +40,9 @@ Increment and decrement the index in an integer
 void retrieve(char target[], int limit);
 int parseCode(char line[], int stack[], int stackPosition, int mode);
 int isCommentOrQuote(int mode);
+int processQuotes(int mode, int stack[], int stackPosition);
+int openBlocks(int mode, int stack[], int stackPosition);
+int closeBlocks(int mode, int stack[], int stackPosition);
 
 /* Main control program */
 int main(void)
@@ -38,8 +50,8 @@ int main(void)
 	int stackPosition, mode;
 	int stack[MAXSTACK];
 	char line[MAXLINE];
-	int k;
-	k=0;
+	int lineNumber;
+	lineNumber=0;
 	mode = DEFAULT;
 	stackPosition = 0;
 	stack[0] = DEFAULT;
@@ -49,12 +61,16 @@ int main(void)
 		if(line[0] == '\0'){
 			break;
 		}
+		printf("%i ", ++lineNumber);
 		stackPosition = parseCode(line, stack, stackPosition, mode);
+		printf("\n");
 		//printf("Printing stack after line %i...\n", k);
-		k++;
 		/*for(int j=0;j<20;++j) {
  			 printf("%i ", stack[j]);
 		}*/
+	}
+	if(stack[stackPosition] == SQUOTE || stack[stackPosition] == DQUOTE){
+		printf("ERROR: FAIL TO CLOSE QUOTE");
 	}
 	return 0;
 }
@@ -82,47 +98,95 @@ int isCommentOrQuote(int mode){
 	return 0;
 }
 
+int processQuotes(int mode, int stack[], int stackPosition){
+	int oppositeQuoteMode = DQUOTE;
+	if(mode == DQUOTE){oppositeQuoteMode = SQUOTE;}
+	if(stack[stackPosition] == oppositeQuoteMode 
+		|| stack[stackPosition] == COMMENT
+		|| stack[stackPosition] == SINGLECOMMENT){
+	}
+	else if(stack[stackPosition] == mode){
+		if(mode == SQUOTE){
+		printf("ENDING AN SQUOTE\n");
+		}
+		if(mode == DQUOTE){
+		printf("ENDING A DQUOTE\n");
+		}
+		stackPosition--;
+	} else {
+	    stackPosition++;
+	    stack[stackPosition] = mode;
+		if(mode == SQUOTE){
+		printf("OPENING AN SQUOTE\n");
+		}
+		if(mode == DQUOTE){
+		printf("OPENING A DQUOTE\n");
+		}
+	}
+	return stackPosition;
+}
+
+int openBlocks(int mode, int stack[], int stackPosition){
+	if(mode == CURLYBLOCK){
+		printf("OPENING A CURLYBLOCK\n");
+	} else if(mode == PAREN){
+		printf("OPENING A PAREN\n");
+	} else if(mode == BRACKETS){
+		printf("OPENING A BRACKET\n");
+	}
+	stackPosition++;
+	stack[stackPosition] = mode;
+	return stackPosition;
+}
+
+int closeBlocks(int mode, int stack[], int stackPosition){
+	if(stack[stackPosition] == mode){
+		if(mode == CURLYBLOCK){
+			printf("CLOSING A CURLYBLOCK\n");
+		} else if(mode == PAREN){
+			printf("CLOSING A PAREN\n");
+		} else if(mode == BRACKETS){
+			printf("CLOSING A BRACKET\n");
+		}
+		stackPosition--;
+	} else {
+		if(mode == CURLYBLOCK){
+			printf("ERROR CLOSED } WITHOUT OPEN\n");
+		} else if(mode == PAREN){
+			printf("ERROR CLOSED ) WITHOUT OPEN\n");
+		} else if(mode == BRACKETS){
+			printf("ERROR CLOSED ] WITHOUT OPEN\n");
+		}
+	}
+	return stackPosition;
+}
+
 int parseCode(char s[], int stack[], int stackPosition, int mode)
 {
     int c, i, modeForCase;
-    /*for(i=0; i < MAXLINE && s[i] != '\0'; ++i) {
-    	if(s[i]=='{' || s[i]=='(' || s[i]=='['){
-    		printf("OPENING CHAR\n");
-    	}
-    	if(s[i]=='}' || s[i]==')' || s[i]==']'){
-    		printf("CLOSING CHAR\n");
-    	}
-    }*/
     for(i=0; i < MAXLINE && s[i] != '\0'; ++i) {
 	    switch (s[i]) {
+	    	case '\'':
+	    		modeForCase = SQUOTE;
+	    		stackPosition = processQuotes(modeForCase, stack, stackPosition);
+	    		break;
+	    	case '\"':
+	    		modeForCase = DQUOTE;
+	    		stackPosition = processQuotes(modeForCase, stack, stackPosition);
+	    		break;
             case '{':
             	modeForCase = CURLYBLOCK;
                 if(isCommentOrQuote(stack[stackPosition]) == 1) {
                 	break;
                 }
-                else if(stack[stackPosition] == DEFAULT){
-                    printf("OPENING A CURLYBLOCK\n");
-                    stackPosition++;
-                    stack[stackPosition] = CURLYBLOCK;
-                } 
-                else if(stack[stackPosition] == CURLYBLOCK){
-                    printf("OPENING A NESTED CURLYBLOCK\n");
-                    stackPosition++;
-                    stack[stackPosition] = CURLYBLOCK;
-                } 
+                stackPosition = openBlocks(modeForCase, stack, stackPosition);
                 break;
             case '}': 
             	modeForCase = CURLYBLOCK;
                 if(isCommentOrQuote(stack[stackPosition]) == 1) {
                 	break;
                 }
-                else if(stack[stackPosition] != CURLYBLOCK){
-                    printf("ERROR, CLOSED (}) WITHOUT OPENING\n");
-	                } 
-                else if(stack[stackPosition] == CURLYBLOCK){
-                    printf("CLOSING A CURLYBLOCK\n");
-                    stackPosition--;
-                } 
+                stackPosition = closeBlocks(modeForCase, stack, stackPosition);
                 break;
             case '/':
             	modeForCase = COMMENT;
@@ -137,30 +201,28 @@ int parseCode(char s[], int stack[], int stackPosition, int mode)
                 if(isCommentOrQuote(stack[stackPosition]) == 1) {
                 	break;
                 }
-                else if(stack[stackPosition] == DEFAULT || 
-                	stack[stackPosition] == CURLYBLOCK){
-                    printf("OPENING A PAREN\n");
-                    stackPosition++;
-                    stack[stackPosition] = PAREN;
-                } 
-                else if(stack[stackPosition] == PAREN){
-                    printf("OPENING A NESTED PAREN\n");
-                    stackPosition++;
-                    stack[stackPosition] = PAREN;
-                } 
+                stackPosition = openBlocks(modeForCase, stack, stackPosition);
                 break;
             case ')':
                 modeForCase = PAREN;
                 if(isCommentOrQuote(stack[stackPosition]) == 1) {
                 	break;
                 }
-                else if(stack[stackPosition] != PAREN){
-                    printf("ERROR, CLOSED ()) WITHOUT OPENING\n");
-	                } 
-                else if(stack[stackPosition] == PAREN){
-                    printf("CLOSING A PAREN\n");
-                    stackPosition--;
-                } 
+                stackPosition = closeBlocks(modeForCase, stack, stackPosition);
+                break;
+            case '[':
+                modeForCase = BRACKETS;
+                if(isCommentOrQuote(stack[stackPosition]) == 1) {
+                	break;
+                }
+                stackPosition = openBlocks(modeForCase, stack, stackPosition);
+                break;
+            case ']':
+                modeForCase = BRACKETS;
+                if(isCommentOrQuote(stack[stackPosition]) == 1) {
+                	break;
+                }
+                stackPosition = closeBlocks(modeForCase, stack, stackPosition);
                 break;
 		}
 	}
