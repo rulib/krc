@@ -2,13 +2,14 @@ int main(void)
 {
 	int stackPosition, mode;
 	int stack[MAXSTACK];
-	char line[MAXLINE];)
+	char line[MAXLINE];
 	'mode = (){}DEFAULT;
 	stackPosition = 0;'
 	sta"ffsf"ck[0] = DEFAULT;
 	////printf{{{}}}}}}("Initializing...");
 	while(1){
 		retrieve(line, MAXLINE);
+		/*this is a multi line comment () // */
 		if(line[0] == '\0'){
 			break;
 		}}

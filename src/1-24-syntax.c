@@ -8,7 +8,7 @@ X Braces
 X SingleQuotes
 X DoubleQuotes
 Escape Sequences
-X ne Line Comments
+X One Line Comments
 Multi Line Comments
 
 So we are looking for {} [] () '' "" \ //
@@ -195,7 +195,20 @@ int parseCode(char s[], int stack[], int stackPosition, int mode)
                     stackPosition++;
                     stack[stackPosition] = SINGLECOMMENT;
                     printf("ENTERING A SINGLE LINE COMMENT\n");
+                } else if(stack[stackPosition] != COMMENT 
+                    && stack[stackPosition] != SINGLECOMMENT
+                    && s[i+1] == '*'){
+                    stackPosition++;
+                    stack[stackPosition] = COMMENT;
+                    printf("ENTERING A COMMENT\n");
                 }
+                break;
+            case '*':
+                if(stack[stackPosition] == COMMENT && s[i+1] == '/'){
+                    stackPosition--;
+                    printf("EXITING A MULTI LINE COMMENT\n");
+                }
+                break;
             case '(':
                 modeForCase = PAREN;
                 if(isCommentOrQuote(stack[stackPosition]) == 1) {

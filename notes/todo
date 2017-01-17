@@ -4,9 +4,9 @@ End of section 1:
 *1-22 Fold lines: done - a few edge cases are suboptimal but meets spec
 *1-23 Decomment: done for multiline comments, not tracking //, 
 	excessively general, reusable probably for 1-24
-1-24 The Big Boy: base on excessively general 1-23, don't spend too much time
+1-24 Base on excessively general 1-23, don't spend too much time
 	debugging this or testing weird cases, you don't know the edge cases in C
 	well enough to bother.
 
 Sections 2, 3, and 4 are pretty chill and rehash modern C kind of, just more language
-details.  5 is POINTERS which is why you need to soldier through 1-21, 22, 24
+details.  5 is POINTERS which is why you need to soldier through 1-21, 22, 2
