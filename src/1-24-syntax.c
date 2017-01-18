@@ -126,6 +126,7 @@ int processQuotes(int mode, int stack[], int stackPosition){
     return stackPosition;
 }
 
+
 int openBlocks(int mode, int stack[], int stackPosition){
     if(mode == CURLYBLOCK){
         printf("OPENING A CURLYBLOCK\n");
@@ -163,7 +164,7 @@ int closeBlocks(int mode, int stack[], int stackPosition){
 
 int parseCode(char s[], int stack[], int stackPosition, int mode)
 {
-    int c, i, modeForCase;
+    int i, modeForCase;
     for(i=0; i < MAXLINE && s[i] != '\0'; ++i) {
         switch (s[i]) {
             case '\'':
@@ -173,6 +174,13 @@ int parseCode(char s[], int stack[], int stackPosition, int mode)
             case '\"':
                 modeForCase = DQUOTE;
                 stackPosition = processQuotes(modeForCase, stack, stackPosition);
+                break;
+            case '\\':
+                if(stack[stackPosition != COMMENT] 
+                && stack[stackPosition] != SINGLECOMMENT){
+                i++;
+                printf("Escape sequence... skipping next char \'%c\'\n",s[i]);
+                }
                 break;
             case '{':
                 modeForCase = CURLYBLOCK;
